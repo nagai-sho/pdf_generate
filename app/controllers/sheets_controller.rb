@@ -19,8 +19,7 @@ class SheetsController < ApplicationController
 
   def new_pdf
     @sheet = Sheet.new()
-
-    html_content = render_to_string(template: 'sheets/new', layout: false )
+    html_content = render_to_string(template: 'sheets/new', layout: false)
     html_path = Rails.root.join('tmp', 'new_sheet.html')
     File.write(html_path, html_content)
     

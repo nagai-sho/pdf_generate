@@ -1,6 +1,6 @@
 class PdfGeneratorService
-  def initialize(templete_path, output_path)
-    @templete_path = templete_path
+  def initialize(template_path, output_path)
+    @template_path = template_path
     @output_path = output_path
   end
   
