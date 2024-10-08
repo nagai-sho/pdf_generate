@@ -32,19 +32,26 @@ class SheetsController < ApplicationController
   end
   
   def generate_pdf_and_send(sheet)
-    # HTMLテンプレートのレンダリング
-    html_content = render_to_string(template: 'sheets/show', layout: false)
+    @sheet = sheet
 
-    # HTMLを一時ファイルに保存
-    html_path = Rails.root.join('tmp', 'new_sheet.html')
-    File.write(html_path, html_content)
+    respond_to do |format|
+      format.html do
+        # HTMLテンプレートのレンダリング
+        html_content = render_to_string(template: 'sheets/show', layout: false)
+        # HTMLを一時ファイルに保存
+        html_path = Rails.root.join('tmp', 'new_sheet.html')
+        File.write(html_path, html_content)
+    
+        # PDF生成
+        pdf_service = PdfGeneratorService.new(html_path.to_s, Rails.root.join('tmp', 'new_sheet.pdf').to_s)
+        pdf_service.generate_pdf
+    
+        # PDFをダウンロード
+        send_file Rails.root.join('tmp', 'new_sheet.pdf'), type: 'application/pdf', disposition: 'inline'
+      end
+      format.turbo_stream { redirect_to root_path }
+    end
 
-    # PDF生成
-    pdf_service = PdfGeneratorService.new(html_path.to_s, Rails.root.join('tmp', 'new_sheet.pdf').to_s)
-    pdf_service.generate_pdf
-
-    # PDFをダウンロード
-    send_file Rails.root.join('tmp', 'new_sheet.pdf'), type: 'application/pdf', disposition: 'inline'
   end
 
 end
