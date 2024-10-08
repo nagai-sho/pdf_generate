@@ -7,7 +7,7 @@
       <%= f.text_field :content %><br>
     </div>
     <div>
-      <%= f.submit 'Preview PDF', target: '_blank' %>
+      <%= f.submit 'Preview PDF', formaction: sheets_preview_pdf_path, target: '_blank' %>
     </div>
   <% end %>
 </div>
