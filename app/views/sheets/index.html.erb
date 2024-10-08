@@ -3,7 +3,6 @@
   <%= link_to 'New', new_sheet_path %>
   <% @sheets.each do |sheet| %>
     <%= sheet.content %>
-    <%#= link_to 'delate', sheet_path(sheet) , method: :delete, data: { confirm: 'Are you sure?' } %>
     <%= link_to 'delate', sheet_path(sheet), data: { turbo_method: :delete, confirm: 'Are you sure?' } %><br>
 
   <% end %>

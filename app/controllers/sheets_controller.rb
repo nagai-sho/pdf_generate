@@ -23,8 +23,7 @@ class SheetsController < ApplicationController
       render :new
     end
   end
-  
-  
+    
   private
   
   def sheet_params
